@@ -22,15 +22,17 @@ class _HeroesPageState extends State<HeroesPage> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (heroesList.heroes != null) {
+          } else if (heroesList.heroes.isNotEmpty) {
             // ListView является аналогом RecyclerView
             return ListView.builder(
               itemCount: heroesList.heroes.length,
               itemBuilder: (ctx, i) => HeroWidget(heroesList.heroes[i]),
             );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
           } else {
             return const Center(
-              child: Text('Please check internet connection'),
+              child: Text('Oh no! Unknown error occurred'),
             );
           }
         },
